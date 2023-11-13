@@ -1,0 +1,43 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block headercontent %}
+{% endblock %}
+
+{% block extraCSS %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'src/css/core/paint.css' %}">
+{% endblock extraCSS %}
+{% block content %}
+<div class="row">
+</div>
+<div class="row">
+<!--     style="margin-top: -80px"-->
+    <div class="col-lg-3 col-3 text-center">
+        <a class="btn btn-app bg-secondary form-control" href="{% url 'home' %}">
+            <i class="fas fa-arrow-circle-left" style="font-size: 35px;"></i>
+        </a>
+    </div>
+        <div class="" style="margin-left: 100px;">
+            <div class="" >
+                <section id="main" class="bg-gradient-secondary btn-lg" >
+                    Color de linea: <input type="color" id="color">
+                    Ancho de linea: <input type="range" id="ancho" max="200" min="1" value="1"><span id="valor">1</span>
+                    <input type="button" value="Limpiar" id="limpiar">
+                </section>
+                <canvas id="canvas" width="1000" height="800" class="card">
+                    No funciona canvas
+                </canvas>
+            </div>
+        </div>
+
+<!--    <div class="col-lg-1 col-1 text-center"><br/>-->
+<!--    </div>-->
+<!--    </div>-->
+</div>
+{% endblock %}
+
+{% block extraJS %}
+	<script src="{% static 'src/js/core/paint.js' %}"></script>
+{% endblock extraJS %}
