@@ -17,120 +17,161 @@
         </div>
     </div>
     <div class="col-lg-6 col-6 text-center card">
-        <div class="row table text-center" style="height: 50px;">
+        <div class="row table text-center" style="height: 90px;">
             <div class="col-lg-3 col-3 text-center"><br/></div>
             <div class="col-lg-12 col-12 text-center">
-                <input class="textview form-control" name="textview" readonly placeholder="Ingrese datos"
+                <input class="textview form-control" id="pre_view_data" readonly
+                       style="height: 30px; font-size: 25px;">
+            </div>
+            <div class="col-lg-12 col-12 text-center">
+                <input class="textview form-control" id="view_data" readonly placeholder="Ingrese datos"
                        style="height: 50px; font-size: 35px;">
             </div>
             <div class="col-lg-3 col-3 text-center"><br/></div>
         </div>
         <br/>
         <div class="row">
-<!--            <div class="col-lg-3 col-3 text-center"><br/></div>-->
             <div class="col-lg-12 col-12 text-center">
                 <div class="row">
                     <div class="col-lg-3 col-3 text-center">
-                        <input class="btn btn-block bg-gradient-secondary btn-lg" type="button" value="%" onclick="clean()">
+                        <input class="btn btn-block bg-gradient-danger btn-lg" type="button" value="Limpiar" onclick="clean()">
                     </div>
                     <div class="col-lg-3 col-3 text-center">
-                        <input class="btn btn-block bg-gradient-secondary btn-lg" type="button" value="x²" onclick="back()">
+                        <button class="btn btn-block bg-gradient-secondary btn-lg" type="button" value="%" onclick="insert('/')">
+                            <i class="fas fa-divide fa-lg"></i>
+                        </button>
                     </div>
                     <div class="col-lg-3 col-3 text-center">
-                        <input class="btn btn-block bg-gradient-secondary btn-lg" type="button" value="²√x" onclick="insert('/')">
+                        <button class="btn btn-block bg-gradient-secondary btn-lg" type="button" value="x²" onclick="insert('@')">
+                            x<span style="font-size: 14px; vertical-align: super;">2</span>
+                        </button>
                     </div>
                     <div class="col-lg-3 col-3 text-center">
-                        <input class="btn btn-block bg-gradient-secondary btn-lg" type="button" value="÷" onclick="insert('*')">
+                        <button class="btn btn-block bg-gradient-secondary btn-lg" type="button" value="²√x" onclick="insert('raiz')">
+                            <i class="fas fa-square-root-alt fa-lg"></i>
+                        </button>
                     </div>
                 </div>
             </div>
-<!--            <div class="col-lg-3 col-3 text-center"><br/></div>-->
         </div>
         <br/>
         <div class="row">
-<!--            <div class="col-lg-3 col-3 text-center"><br/></div>-->
             <div class="col-lg-12 col-12 text-center">
                 <div class="row">
                     <div class="col-lg-3 col-3 text-center">
-                        <input class="btn btn-block bg-gradient-secondary btn-lg" type="button" value="7" onclick="clean()">
+                        <button class="btn btn-block bg-gradient-secondary btn-lg" type="button" value="7"
+                                onclick="agregarNumero(7)" style="font-size: 30px;">
+                            7
+                        </button>
                     </div>
                     <div class="col-lg-3 col-3 text-center">
-                        <input class="btn btn-block bg-gradient-secondary btn-lg" type="button" value="8" onclick="back()">
+                        <button class="btn btn-block bg-gradient-secondary btn-lg" type="button" value="8"
+                                onclick="agregarNumero(8)" style="font-size: 30px;">
+                            8
+                        </button>
                     </div>
                     <div class="col-lg-3 col-3 text-center">
-                        <input class="btn btn-block bg-gradient-secondary btn-lg" type="button" value="9" onclick="insert('/')">
+                        <button class="btn btn-block bg-gradient-secondary btn-lg" type="button" value="9"
+                                onclick="agregarNumero(9)" style="font-size: 30px;">
+                            9
+                        </button>
                     </div>
                     <div class="col-lg-3 col-3 text-center">
-                        <input class="btn btn-block bg-gradient-secondary btn-lg" type="button" value="x" onclick="insert('*')">
+                        <button class="btn btn-block bg-gradient-secondary btn-lg" type="button" value="x" onclick="insert('*')">
+                            <i class="fas fa-times fa-lg"></i>
+                        </button>
                     </div>
                 </div>
             </div>
-<!--            <div class="col-lg-3 col-3 text-center"><br/></div>-->
         </div>
         <br/>
         <div class="row">
-<!--            <div class="col-lg-3 col-3 text-center"><br/></div>-->
             <div class="col-lg-12 col-12 text-center">
                 <div class="row">
                     <div class="col-lg-3 col-3 text-center">
-                        <input class="btn btn-block bg-gradient-secondary btn-lg" type="button" value="4" onclick="clean()">
+                        <button class="btn btn-block bg-gradient-secondary btn-lg" type="button" value="4"
+                                onclick="agregarNumero(4)" style="font-size: 30px;">
+                            4
+                        </button>
                     </div>
                     <div class="col-lg-3 col-3 text-center">
-                        <input class="btn btn-block bg-gradient-secondary btn-lg" type="button" value="5" onclick="back()">
+                        <button class="btn btn-block bg-gradient-secondary btn-lg" type="button" value="5"
+                                onclick="agregarNumero(5)" style="font-size: 30px;">
+                            5
+                        </button>
                     </div>
                     <div class="col-lg-3 col-3 text-center">
-                        <input class="btn btn-block bg-gradient-secondary btn-lg" type="button" value="6" onclick="insert('/')">
+                        <button class="btn btn-block bg-gradient-secondary btn-lg" type="button" value="6"
+                                onclick="agregarNumero(6)" style="font-size: 30px;">
+                            6
+                        </button>
                     </div>
                     <div class="col-lg-3 col-3 text-center">
-                        <input class="btn btn-block bg-gradient-secondary btn-lg" type="button" value="-" onclick="insert('*')">
+                        <button class="btn btn-block bg-gradient-secondary btn-lg" type="button" value="-" onclick="insert('-')">
+                            <i class="fas fa-minus fa-lg"></i>
+                        </button>
                     </div>
                 </div>
             </div>
-<!--            <div class="col-lg-3 col-3 text-center"><br/></div>-->
         </div>
         <br/>
         <div class="row">
-<!--            <div class="col-lg-3 col-3 text-center"><br/></div>-->
             <div class="col-lg-12 col-12 text-center">
                 <div class="row">
                     <div class="col-lg-3 col-3 text-center">
-                        <input class="btn btn-block bg-gradient-secondary btn-lg" type="button" value="1" onclick="clean()">
+                        <button class="btn btn-block bg-gradient-secondary btn-lg" type="button"
+                                value="1" onclick="agregarNumero(1)" style="font-size: 30px;">
+                            1
+                        </button>
                     </div>
                     <div class="col-lg-3 col-3 text-center">
-                        <input class="btn btn-block bg-gradient-secondary btn-lg" type="button" value="2" onclick="back()">
+                        <button class="btn btn-block bg-gradient-secondary btn-lg" type="button" value="2"
+                                onclick="agregarNumero(2)" style="font-size: 30px;">
+                            2
+                        </button>
                     </div>
                     <div class="col-lg-3 col-3 text-center">
-                        <input class="btn btn-block bg-gradient-secondary btn-lg" type="button" value="3" onclick="insert('/')">
+                        <button class="btn btn-block bg-gradient-secondary btn-lg" type="button" value="3"
+                                onclick="agregarNumero(3)" style="font-size: 30px;">
+                            3
+                        </button>
                     </div>
                     <div class="col-lg-3 col-3 text-center">
-                        <input class="btn btn-block bg-gradient-secondary btn-lg" type="button" value="+" onclick="insert('*')">
+                        <button class="btn btn-block bg-gradient-secondary btn-lg" type="button" value="+" onclick="insert('+')">
+                            <i class="fas fa-plus fa-lg"></i>
+                        </button>
                     </div>
                 </div>
             </div>
-<!--            <div class="col-lg-3 col-3 text-center"><br/></div>-->
         </div>
         <br/>
         <div class="row">
-<!--            <div class="col-lg-3 col-3 text-center"><br/></div>-->
             <div class="col-lg-12 col-12">
                 <div class="row table">
-<!--                    <div class="col-lg-3 col-3 text-center">-->
-<!--                        <br/>-->
-<!--                    </div>-->
-                    <div class="col-lg-4 col-4 text-center">
-                        <input class="btn btn-block bg-gradient-secondary btn-lg" type="button" value="." onclick="insert('/')">
+                    <div class="col-lg-3 col-3 text-center">
+                        <button class="btn btn-block bg-gradient-secondary btn-lg" type="button" value="." onclick="agregarNumero('.')">
+                            <i class="fas fa-dot-circle fa-lg"></i>
+                        </button>
                     </div>
-                    <div class="col-lg-4 col-4 text-center">
-                        <input class="btn btn-block bg-gradient-secondary btn-lg" type="button" value="0" onclick="back()">
+                    <div class="col-lg-3 col-3 text-center">
+                        <button class="btn btn-block bg-gradient-secondary btn-lg" type="button" value="0"
+                                onclick="agregarNumero(0)" style="font-size: 30px;">
+                            0
+                        </button>
                     </div>
-                    <div class="col-lg-4 col-4 text-center">
-                        <input class="btn btn-block bg-gradient-secondary btn-lg" type="button" value="=" onclick="insert('*')">
+                    <div class="col-lg-3 col-3 text-center">
+                        <button class="btn btn-block bg-gradient-secondary btn-lg" type="button" value="=" onclick="insert('=')">
+                            <i class="fas fa-equals fa-lg"></i>
+                        </button>
+                    </div>
+                    <div class="col-lg-3 col-3 text-center">
+                        <button class="btn btn-block bg-gradient-warning btn-lg" type="button" onclick="back()">
+                            <i class="fas fa-arrow-circle-left fa-lg"></i>
+                        </button>
                     </div>
                 </div>
             </div>
-<!--            <div class="col-lg-3 col-3 text-center"><br/></div>-->
         </div>
-
     </div>
     <div class="col-lg-3 col-3 text-center">
       <img src="{% static 'src/img/calculater2.gif' %}"  height="260" width="260">
@@ -177,3 +218,7 @@
 <!--    <script src="js/main.js"></script>-->
 
 {% endblock %}
+
+{% block extraJS %}
+	<script src="{% static 'src/js/core/calculadora.js' %}"></script>
+{% endblock extraJS %}
