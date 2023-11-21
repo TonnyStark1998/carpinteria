@@ -1,0 +1,8 @@
+.icono-carpeta {
+    color: #999; /* Color más tenue (gris claro) */
+    font-size: 30px; /* Tamaño del ícono */
+}
+.icono-archivo {
+    color: black; /* Color negro */
+    font-size: 24px; /* Tamaño del ícono */
+}
