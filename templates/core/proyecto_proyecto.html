@@ -1,6 +1,24 @@
 {% extends 'core/base.html' %}
 {% load static %}
 {% block headercontent %}
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+
+   Incluye Vue.js desde el CDN
+  <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
+   Incluye Three.js desde el CDN
+  <script src="https://cdn.jsdelivr.net/npm/three@110.0.1/build/three.min.js"></script>
+   Incluye three-orbitcontrols desde el CDN
+  <script src="https://cdn.jsdelivr.net/npm/three@110.0.1/examples/js/controls/OrbitControls.js"></script>
+
+  <script src="https://threejs.org/examples/jsm/loaders/GLTFLoader.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.0.3/pako.min.js"></script>-->
+
+<!--<script src="https://threejs.org/build/three.js"></script>-->
+
+
 {% endblock %}
 {% block extraCSS %}
 <link rel="stylesheet" href="{% static 'src/css/core/proyecto_proyecto.css' %}">
@@ -58,8 +76,8 @@
 	</div>
 </div>
 
-<div class="modal fade" id="modal-xl">
-	<div class="modal-dialog modal-xl">
+<div class="modal fade" id="modal-xl" style="margin: 0;">
+	<div class="modal-dialog custom-modal-width" style="height: 100%;margin: 0;">
 	  <div class="modal-content">
 		<div class="modal-header">
 		  <h4 class="modal-title">Visor de archivo PDF</h4>
@@ -81,10 +99,72 @@
 	  </div>
 	</div>
 </div>
+<div class="modal" id="skpModal" tabindex="-1" role="dialog" aria-labelledby="skpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="skpModalLabel">Visor 3D SKP</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+<!--            <div class="modal-body" id="skpModalBody">-->
 
+            <div class="modal-body" id="skpModalBody">
+  <div id="app"></div>
+
+
+<!--  <script>-->
+<!--  </script>-->
+<!--				<div id="app">-->
+<!--				  <ThreeViewer :modelData="base64ModelData" />-->
+<!--				</div>-->
+
+<!--				<div id="app">-->
+<!--				  &lt;!&ndash; Contenido de tu aplicación Vue &ndash;&gt;-->
+<!--				  <h1>{$ message $}</h1>-->
+<!--				  <button @click="changeMessage">Cambiar Mensaje</button>-->
+<!--				</div>-->
+
+<!--				<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>-->
+
+<!--				<div id="app2">[[ message ]]</div>-->
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block extraJS %}
-	<script src="{% static 'src/js/core/proyecto_proyecto.js' %}"></script>
 	<script src="https://mozilla.github.io/pdf.js/build/pdf.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script src="https://cdn.babylonjs.com/babylon.js"></script>
+
+<script src="https://code.playcanvas.com/playcanvas-stable.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@110.0.1/examples/js/controls/OrbitControls.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+
+
+  <!-- Incluye Vue.js desde el CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
+  <!-- Incluye Three.js desde el CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/three@110.0.1/build/three.min.js"></script>
+  <!-- Incluye three-orbitcontrols desde el CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/three@110.0.1/examples/js/controls/OrbitControls.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.0.3/pako.min.js"></script>
+	<script src="{% static 'src/js/core/proyect_vue.js' %}"></script>
+	<script src="{% static 'src/js/core/proyecto_proyecto.js' %}"></script>
+
 {% endblock extraJS %}

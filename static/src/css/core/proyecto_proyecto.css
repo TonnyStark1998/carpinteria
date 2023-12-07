@@ -6,3 +6,13 @@
     color: black; /* Color negro */
     font-size: 24px; /* Tamaño del ícono */
 }
+.custom-modal-width {
+    max-width: 2040px; /* Ancho máximo */
+    width: 100%; /* Ocupar el 100% del contenedor padre */
+    margin-left: auto; /* Centrar el modal horizontalmente */
+    margin-right: auto; /* Centrar el modal horizontalmente */
+    max-height: 100%; /* Altura máxima */
+    height: 100vh; /* Ocupar el 100% del alto de la pantalla */
+    margin-top: 0; /* Eliminar el margen superior */
+    margin-bottom: 0; /* Eliminar el margen inferior */
+}
