@@ -92,18 +92,20 @@ def get_file_data_skp(request):
     print("SMMMMMMMMMMMMMMMMMMM12")
     print(request.GET['path'])
     print("SMMMMMMMMMMMMMMMMMMM33")
+
     # Ruta al ejecutable de Blender
-    blender_executable = 'blender'
+    # blender_executable = 'blender'
+    blender_executable = '/home/dev/blender-3.6.5-linux-x64/blender'
 
     # Ruta al script de Blender
-    blender_script = 'D:/Documentos/odoo/carpinteria/carpinteria/convertion_skp_gltf.py'
+    blender_script = '/home/dev/repos/carpinteria/convertion_skp_gltf.py'
 
     # Rutas de los archivos skp y destino
     ubicacion_skp = request.GET['path']
-    destino = 'C:/Users/corne/Documents/temp/'
+    destino = '/home/dev/repos/carpinteria-models/'
 
     # Comando para ejecutar el script de Blender con los argumentos
-    command = f'{blender_executable} --background --python {blender_script} -- {shlex.quote(ubicacion_skp)} {shlex.quote(destino)}'
+    command = f'{blender_executable} -b -P {blender_script} -- {shlex.quote(ubicacion_skp)} {shlex.quote(destino)}'
 
     # Ejecutar el comando
     process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)

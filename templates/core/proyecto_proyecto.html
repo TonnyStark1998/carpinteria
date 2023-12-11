@@ -9,10 +9,13 @@
    Incluye Three.js desde el CDN
   <script src="https://cdn.jsdelivr.net/npm/three@110.0.1/build/three.min.js"></script>
    Incluye three-orbitcontrols desde el CDN
-  <script src="https://cdn.jsdelivr.net/npm/three@110.0.1/examples/js/controls/OrbitControls.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/three@110.0.1/examples/js/controls/OrbitControls.js"></script> -->
+  <script src="https://unpkg.com/three@0.159.0/examples/jsm/controls/OrbitControls.js"></script>
 
-  <script src="https://threejs.org/examples/jsm/loaders/GLTFLoader.js"></script>
+<script src="https://threejs.org/examples/jsm/loaders/GLTFLoader.js"></script>
+<script src="https://unpkg.com/three@0.159.0/examples/jsm/controls/OrbitControls.js"></script>
 
+  
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js"></script>
 <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.0.3/pako.min.js"></script>-->
 
@@ -89,8 +92,9 @@
 <!--    		<div id="pdf-viewer"></div>-->
 <!--    		<embed id="pdf-embed" type="application/pdf" width="100%" height="600px"-->
 <!--				   oncontextmenu="return f/alse;" controls="controls"/>-->
-			<iframe id="pdf-iframe" width="100%" height="600px" frameborder="0"></iframe>
-
+			<!-- <iframe id="pdf-iframe" width="100%" height="600px" frameborder="0"></iframe> -->
+		SCENEA GLFT
+		<div id="scene-container"></div>
 		</div>
 		<div class="modal-footer justify-content-between">
 		  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -148,7 +152,6 @@
     <script src="https://cdn.babylonjs.com/babylon.js"></script>
 
 <script src="https://code.playcanvas.com/playcanvas-stable.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@110.0.1/examples/js/controls/OrbitControls.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 
@@ -158,13 +161,11 @@
   <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
   <!-- Incluye Three.js desde el CDN -->
   <script src="https://cdn.jsdelivr.net/npm/three@110.0.1/build/three.min.js"></script>
-  <!-- Incluye three-orbitcontrols desde el CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/three@110.0.1/examples/js/controls/OrbitControls.js"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.0.3/pako.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.0.3/pako.min.js"></script>
 	<script src="{% static 'src/js/core/proyect_vue.js' %}"></script>
 	<script src="{% static 'src/js/core/proyecto_proyecto.js' %}"></script>
-
 {% endblock extraJS %}
