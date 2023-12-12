@@ -80,10 +80,9 @@ def get_file_data_skp_bin(request):
     with open(path_bin, 'rb') as archivo_bin:
         contenido_bin = archivo_bin.read()
 
-    response = HttpResponse(content_type='application/text')
+    response = HttpResponse(content_type='application/octet-stream')
 
     response.write(contenido_bin)
-    # print(response.content)
     return response
 
 def get_file_data_skp(request):
