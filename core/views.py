@@ -77,8 +77,6 @@ def get_file_data_skp_bin(request):
     print(request.GET)
     print(request.GET['path_bin'])
     path_bin = request.GET['path_bin']
-    with open(path_bin, 'rb') as archivo_bin:
-        contenido_bin = archivo_bin.read()
 
     response = HttpResponse(content_type='application/octet-stream')
 
@@ -125,10 +123,10 @@ def get_file_data_skp(request):
 
     # Obtener el nombre del archivo generado en el directorio de destino
     base_filename = os.path.basename(ubicacion_skp)
-    generated_filename = f"{os.path.splitext(base_filename)[0]}.gltf"
-    generated_filename_bin = f"{os.path.splitext(base_filename)[0]}.bin"
+    generated_filename = f"{os.path.splitext(base_filename)[0]}.glb"
+    # generated_filename_bin = f"{os.path.splitext(base_filename)[0]}.bin"
     generated_filepath = os.path.join(destino, generated_filename)
-    generated_filepath_bin = os.path.join(destino, generated_filename)
+    # generated_filepath_bin = os.path.join(destino, generated_filename)
     print(f"El archivo se ha guardado como: {generated_filename}")
     print(f"Ruta completa del archivo: {generated_filepath}")
     import json
@@ -143,163 +141,26 @@ def get_file_data_skp(request):
         if os.path.exists(model_filepath):
             archivos = os.listdir(destino)
             print(archivos)
-            # Lee el contenido de los archivos en modo binario
-            with open(destino + '/' + generated_filename_bin, 'rb') as archivo_bin:
-                contenido_bin = archivo_bin.read()
 
             with open(destino + '/' + generated_filename, 'rb') as archivo_gltf:
                 contenido_gltf = archivo_gltf.read()
 
-            # # Crear un objeto JSON que contenga tanto el binario como el JSON
-            # datos_json = {
-            #     'binario': contenido_bin.decode('latin-1'),  # Convertir el binario a una cadena
-            #     'json': contenido_gltf.decode('utf-8'),  # Suponiendo que el contenido es texto JSON
-            # }
-            #
-            # # Serializar el objeto JSON a una cadena
-            # json_string = json.dumps(datos_json)
-            #
-            # # Configurar la respuesta HTTP
-            # response = HttpResponse(content_type='application/json')
-            # response.write(json_string)
-            # Configura la respuesta HTTP
-            response = HttpResponse(content_type='application/text')
 
-            # # Establece los tipos MIME
-            # tipo_mime_bin = mimetypes.guess_type(destino + '/' + generated_filename_bin)[0]
-            # tipo_mime_gltf = mimetypes.guess_type(destino + '/' + generated_filename)[0]
+            response = HttpResponse(content_type='application/octet-stream')
 
-            # # Adjunta los archivos a la respuesta
             response.write(contenido_gltf)
-            response.write('---MARCA---')
-            response.write(destino + generated_filename_bin)
-            # response.write(contenido_bin)
+          
 
-            # Establece los encabezados para la descarga
-            # response['Content-Disposition'] = f'attachment; filename=archivo.bin'
-            # response['Content-Type'] = 'application/octet-stream'  # Tipo MIME genérico para archivos binarios
-            # response['Content-Length'] = os.path.getsize(
-            #     os.path.join(destino, generated_filename_bin)) + os.path.getsize(
-            #     os.path.join(destino, generated_filename))
+
             print(response.content)
-            # -----
-#             buffer = io.BytesIO()
-#             with zipfile.ZipFile(buffer, 'w') as zip_file:
-#                 for archivo in archivos:
-#                     archivo_path = os.path.join(destino, archivo)
-#                     with open(archivo_path, 'rb') as file:
-#                         contenido_binario = file.read()
-#                         zip_file.writestr(archivo, contenido_binario)
-#
-#             # buffer.seek(0)
-#             print('Longitud del buffer antes de enviar:', len(buffer.getvalue()))
-#
-#
-#             # response = HttpResponse(buffer.getvalue(), content_type='application/octet-stream')
-#             # response['Content-Disposition'] = 'attachment; filename=archivos_modelo.zip'
-#
-#             # Crear la respuesta HTTP
-#             response = HttpResponse(buffer.getvalue(), content_type='application/octet-stream')
-#             response['Content-Disposition'] = 'attachment; filename=archivos_modelo.zip'
-# # ----
-        # buffer = io.BytesIO()
-        #
-        # response = HttpResponse(content_type='application/octet-stream')
-        # response['Content-Disposition'] = 'attachment; filename=archivos_modelo.zip'
-        #
-        # with zipfile.ZipFile(buffer, 'w') as zip_file:
-        #     for archivo in archivos:
-        #         if archivo.endswith('.bin') or archivo.endswith('.gltf'):
-        #             print('archivo')
-        #             print(archivo)
-        #         with open(destino + '/' + archivo, 'rb') as file:
-        #             response.write(file.read())
-        #             # archivo_path = os.path.join(destino, archivo)
-        #             # zip_file.write(archivo_path, archivo)
-
-        # buffer.seek(0)
-
             print('Esto NO fue un error')
             print(response)
             return response
     except Exception as e:
         print(f'Error: {str(e)}')
         print('Esto fue un error')
-        # return JsonResponse({'error': f'Error al obtener datos: {str(e)}'}, status=500)
         return HttpResponse(f'Error: {str(e)}', status=500)
-        # -------------------------
-        # model_filepath = os.path.join(generated_filepath)
-        #
-        # if os.path.exists(model_filepath):
-        # # if os.path.exists(gltf_filepath) and os.path.exists(bin_filepath):
-        #     # Leer el modelo GLTF como JSON
-        #     with open(generated_filepath, 'r', encoding='utf-8') as gltf_file:
-        #         gltf_data = json.load(gltf_file)
-        #
-        #     # Leer el archivo binario como binario
-        #     with open(generated_filepath_bin, 'rb') as bin_file:
-        #         bin_data = bin_file.read()
-        #
-        #     # Codificar el contenido binario en base64
-        #     encoded_bin_data = base64.b64encode(bin_data).decode('utf-8')
-        #
-        #     # Actualizar el modelo GLTF para incluir el binario
-        #     # Aquí asumimos que hay un único buffer en el modelo GLTF
-        #     gltf_data["buffers"][0]['uri'] = f'data:application/octet-stream;base64,{encoded_bin_data}'
-        #
-        #     # Guardar el modelo GLTF modificado
-        #     with open(generated_filepath, 'w', encoding='utf-8') as gltf_file:
-        #         json.dump(gltf_data, gltf_file)
-        #
-        #     print("{'model_data': gltf_data}")
-        #     print({'model_data': gltf_data})
-        #     # Enviar la respuesta JSON con el modelo GLTF modificado
-        #     # Convertir el diccionario a una cadena JSON
-        #     cadena_json = json.dumps(gltf_data)
-        #
-        #     # Codificar la cadena JSON en base64
-        #     response_data = base64.b64encode(cadena_json.encode('utf-8')).decode('utf-8')
-        #     # response_data = {'model_data': base64.b64encode(gltf_data).decode('utf-8')}
-        #     return JsonResponse(response_data, safe=False)
-
-# -------------------------
-        # if os.path.exists(model_filepath):
-        #     # Leer el modelo principal como texto
-        #     with open(model_filepath, 'r', encoding='latin-1') as file:
-        #         model_data = file.read()
-        #
-        #     # Obtener la lista de archivos adicionales en la misma carpeta
-        #     additional_files = None
-        #
-        #     for filename in os.listdir(destino):
-        #         if filename != generated_filename:
-        #             file_path = os.path.join(destino, filename)
-        #             with open(file_path, 'rb') as additional_file:
-        #                 if filename.endswith('.gltf'):
-        #                     # additional_data = base64.b64encode(additional_file.read()).decode('utf-8')
-        #                     model_data = additional_file.read()
-        #                     print("additional_file")
-        #                     print(additional_file)
-        #                 if filename.endswith('.bin'):
-        #                     additional_data = base64.b64encode(additional_file.read()).decode('utf-8')
-        #                     additional_files = additional_data
-        #                     # additional_files[filename] = additional_data
-        #                     print("additional_file")
-        #                     print(additional_file)
-        #                 # additional_files[filename] = additional_data
-        #                 # # Leer el archivo adicional como binario y codificarlo en Base64
-        #                 # additional_data = base64.b64encode(additional_file.read()).decode('utf-8')
-        #                 # additional_files[filename] = additional_data
-        #
-        #     # Incluir datos codificados en el JsonResponse
-        #     response_data = {'model_data': model_data, 'additional_files': additional_files}
-        #     return JsonResponse(response_data)
-    #     else:
-    #         return JsonResponse({'error': 'Modelo no encontrado'}, status=404)
-    # except Exception as e:
-    #     print(f'Error: {str(e)}')
-    #     return JsonResponse({'error': f'Error al obtener datos: {str(e)}'}, status=500)
-
+ 
 
 def get_file_data(request):
     print(request)

@@ -18,15 +18,15 @@ ubicacion_skp = argv[0]
 destino = argv[1]
 
 # Cargar el archivo SKP
- bpy.ops.import_scene.fbx(filepath=ubicacion_skp)
-# bpy.ops.import_scene.fbx(filepath=ubicacion_skp)
+bpy.ops.import_scene.fbx(filepath=ubicacion_skp)
+# bpy.ops.import_scene.skp(filepath=ubicacion_skp)
 
 # Crear la ruta completa del archivo de destino
 nombre_archivo = os.path.splitext(os.path.basename(ubicacion_skp))[0]
 ruta_destino = os.path.join(destino, f"{nombre_archivo}.gltf")
 
 # Exportar a glTF
-bpy.ops.export_scene.gltf(filepath=ruta_destino, export_format='GLTF_SEPARATE')
+bpy.ops.export_scene.gltf(filepath=ruta_destino, export_format='GLB')
 
 # Imprimir información
 print(f"Conversión completa. Se ha guardado en: {ruta_destino}")

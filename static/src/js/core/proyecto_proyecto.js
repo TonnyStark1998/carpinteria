@@ -90,62 +90,98 @@ function obtener_directorio() {
     },
   });
 }
+
 function ver_archivo_SKP(_path) {
   $('#modal-xl').modal('show');
 
   // GLTFLoader instance
   var loader = new THREE.GLTFLoader();
 
-  // Variables to store loaded data
-  var gltfData, binaryData, path_bin;
+  // Create a new XMLHttpRequest
+  var xhr = new XMLHttpRequest();
 
-  // Load GLTF data
-  $.ajax({
-    url: '/get_file_data_skp',
-    data: { 'path': _path },
-    method: 'GET',
-    responseType: 'text',
-    success: function (data) {
-      var args = data.split('---MARCA---');
-      var dataGltf = args[0];
-      path_bin = args[1];
+  // Set responseType to 'arraybuffer'
+  xhr.responseType = 'arraybuffer';
 
-      gltfData = dataGltf;
-
-      // Load binary data
-      loadBinaryData(path_bin, function (float32Array) {
-        binaryData = float32Array;
-        checkLoadComplete();
-      });
-    },
-    error: function (error) {
-      console.log('Error loading GLTF data:', error);
+  // Define the success and error handlers
+  xhr.onload = function () {
+    if (xhr.status === 200) {
+      checkLoadComplete(xhr.response);
+    } else {
+      console.log('Error loading GLTF data. Status:', xhr.status);
     }
-  });
+  };
+
+  xhr.onerror = function (error) {
+    console.log('Error loading GLTF data:', error);
+  };
+
+  // Open and send the request
+  xhr.open('GET', '/get_file_data_skp?path=' + encodeURIComponent(_path));
+  xhr.send();
 
 
   // Function to check if both GLTF and binary data are loaded
-  function checkLoadComplete() {
-    if (gltfData && binaryData) {
-      // Both GLTF and binary data are loaded, proceed with rendering
-      debugger;
-
+  function checkLoadComplete(gltfData) {
+    if (gltfData) {
       loader.parse(gltfData, '', function (gltf) {
         var scene = new THREE.Scene();
         scene.add(gltf.scene);
 
-        // Use binary data for buffer geometry
-        var bufferGeometry = new THREE.BufferGeometry();
-        bufferGeometry.setAttribute('position', new THREE.BufferAttribute(binaryData, 3));
+        // Add ambient light to the scene
+        const ambientLight = new THREE.AmbientLight(0x1E1E1E); // Use a light gray color
+        scene.add(ambientLight);
 
-        // Scale the geometry
-        bufferGeometry.scale(0.1, 0.1, 0.1);
+        // Create a directional light
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 4);
+        directionalLight.position.set(1, 1, 1).normalize(); // Set the direction of the light
+        scene.add(directionalLight);
+        
+        // Get the dimenssions
+        debugger;
+        var container = document.getElementById('scene-container');
+        var containerWidth = container.clientWidth;
+        var containerHeight = container.offsetHeight; 
+        // Initialize camera
+        const camera = new THREE.PerspectiveCamera(100, window.innerWidth/ window.innerHeight, 0.1, 1000);
+        camera.position.z= 10;
 
-        // Create mesh
-        var mesh = new THREE.Mesh(bufferGeometry, new THREE.MeshStandardMaterial());
-        scene.add(mesh);
+        // Initialize renderer
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(containerWidth, containerHeight);
+        document.getElementById('scene-container').appendChild(renderer.domElement);
 
-        // TODO AGREGAR CODIGO DE SCENA CUANDO ESTE CARGADO
+        // Initialize orbit controls
+        // const controls = new OrbitControls(camera, renderer.domElement);
+        // controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
+        // controls.dampingFactor = 0.25;
+        // controls.screenSpacePanning = false;
+        // controls.maxPolarAngle = Math.PI / 2;
+
+        // Animation loop
+        const animate = () => {
+          requestAnimationFrame(animate);
+
+          // Update orbit controls
+          // controls.update();
+
+          renderer.render(scene, camera);
+        };
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+          const newWidth = window.innerWidth;
+          const newHeight = window.innerHeight;
+
+          camera.aspect = newWidth / newHeight;
+          camera.updateProjectionMatrix();
+
+          renderer.setSize(newWidth, newHeight);
+        });
+
+        // Start animation loop
+        animate();
+
         console.log('Model loaded successfully.');
       });
     }
@@ -153,37 +189,24 @@ function ver_archivo_SKP(_path) {
 }
 
 // Function to load binary data using Ajax
-function loadBinaryData(path, callback) {
-  debugger
-  $.ajax({
-    url: '/get_file_data_skp_bin',
-    data: { 'path_bin': path },
-    method: 'GET',
-    responseType: 'arraybuffer',  // Correct spelling
-    success: function (response) {
-      // const float32Array = convertBinaryToFloat32Array(response);
-      callback(response);
-    },
-    error: function (error) {
+// function loadBinaryData(path, callback) {
+//   debugger
+//   $.ajax({
+//     url: '/get_file_data_skp_bin',
+//     data: { 'path_bin': path },
+//     method: 'GET',
+//     responseType: 'arraybuffer',  // Correct spelling
+//     success: function (response) {
+//       callback(response);
+//     },
+//     error: function (error) {
 
-      debugger;
-      console.error('Error loading binary data:', error);
-    }
-  });
-}
+//       debugger;
+//       console.error('Error loading binary data:', error);
+//     }
+//   });
+// }
 
-function convertBinaryToFloat32Array(binaryData) {
-  debugger;
-  const dataView = new DataView(binaryData);
-  const numFloat32Values = binaryData.byteLength / Float32Array.BYTES_PER_ELEMENT;
-  const float32Array = new Float32Array(numFloat32Values);
-
-  for (let i = 0; i < numFloat32Values; i++) {
-    float32Array[i] = dataView.getFloat32(i * Float32Array.BYTES_PER_ELEMENT, true);
-  }
-
-  return float32Array;
-}
 //---------------------------
 //    $.ajax({
 //  url: '/get_file_data_skp',
