@@ -150,10 +150,6 @@ def get_file_data_skp(request):
 
             response.write(contenido_gltf)
           
-
-
-            print(response.content)
-            print('Esto NO fue un error')
             print(response)
             return response
     except Exception as e:

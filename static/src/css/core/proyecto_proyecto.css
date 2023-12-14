@@ -16,7 +16,9 @@
     margin-top: 0; /* Eliminar el margen superior */
     margin-bottom: 0; /* Eliminar el margen inferior */
 }
-
+.modal-content {
+    height: 80vh !important;
+}
 
 #scene-container {
     width: 100%;

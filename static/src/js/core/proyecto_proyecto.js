@@ -1,6 +1,9 @@
-obtener_directorio();
+// ENTRY
 
+obtener_directorio();
 var rutaViewDataInput = document.getElementById("ruta");
+
+// DECLARACIONES
 function loadSKP(data) {
   var initialModelData = data['model_data'];
   //  var additionalFiles = data['additional_files'];
@@ -10,23 +13,7 @@ function loadSKP(data) {
   //  loadModel(data);
 }
 
-//    console.log(base64Data)
-//        app._component.methods.changeModel(base64Data)
-
-//['model_data']
-//    // Cargar y visualizar el archivo SKP al abrir el modal
-//    $('#skpModal').on('shown.bs.modal', function () {
-//        loadSKP(base64SKP);
-//    });
-//
-//    // Limpiar el canvas al cerrar el modal para liberar recursos
-//    $('#skpModal').on('hidden.bs.modal', function () {
-//        document.getElementById('skpModalBody').innerHTML = '';
-//    });
-
-
 function obtener_directorio() {
-
   $.ajax({
     url: '/get_files',
     dataType: 'json',
@@ -99,11 +86,8 @@ function ver_archivo_SKP(_path) {
 
   // Create a new XMLHttpRequest
   var xhr = new XMLHttpRequest();
-
-  // Set responseType to 'arraybuffer'
   xhr.responseType = 'arraybuffer';
 
-  // Define the success and error handlers
   xhr.onload = function () {
     if (xhr.status === 200) {
       checkLoadComplete(xhr.response);
@@ -120,50 +104,51 @@ function ver_archivo_SKP(_path) {
   xhr.open('GET', '/get_file_data_skp?path=' + encodeURIComponent(_path));
   xhr.send();
 
-
   // Function to check if both GLTF and binary data are loaded
   function checkLoadComplete(gltfData) {
     if (gltfData) {
       loader.parse(gltfData, '', function (gltf) {
         var scene = new THREE.Scene();
         scene.add(gltf.scene);
+        scene.scale.set(4, 4, 4); // Scale by a factor of 2 along all axes
 
         // Add ambient light to the scene
         const ambientLight = new THREE.AmbientLight(0x1E1E1E); // Use a light gray color
         scene.add(ambientLight);
 
         // Create a directional light
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 4);
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
         directionalLight.position.set(1, 1, 1).normalize(); // Set the direction of the light
         scene.add(directionalLight);
-        
+
         // Get the dimenssions
-        debugger;
         var container = document.getElementById('scene-container');
         var containerWidth = container.clientWidth;
-        var containerHeight = container.offsetHeight; 
+        var containerHeight = container.offsetHeight;
+
         // Initialize camera
-        const camera = new THREE.PerspectiveCamera(100, window.innerWidth/ window.innerHeight, 0.1, 1000);
-        camera.position.z= 10;
+        const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 10;
 
         // Initialize renderer
         const renderer = new THREE.WebGLRenderer();
         renderer.setSize(containerWidth, containerHeight);
         document.getElementById('scene-container').appendChild(renderer.domElement);
 
-        // Initialize orbit controls
-        // const controls = new OrbitControls(camera, renderer.domElement);
-        // controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
-        // controls.dampingFactor = 0.25;
-        // controls.screenSpacePanning = false;
-        // controls.maxPolarAngle = Math.PI / 2;
+        const controls = new FlyControls(camera, renderer.domElement);
+        controls.movementSpeed = 15;
+        controls.rollSpeed = 0.2;
+        controls.dragToLook = true;
+
+        var clock = new THREE.Clock();
 
         // Animation loop
         const animate = () => {
           requestAnimationFrame(animate);
 
           // Update orbit controls
-          // controls.update();
+          var delta = clock.getDelta();
+          controls.update(delta);
 
           renderer.render(scene, camera);
         };
@@ -187,174 +172,6 @@ function ver_archivo_SKP(_path) {
     }
   }
 }
-
-// Function to load binary data using Ajax
-// function loadBinaryData(path, callback) {
-//   debugger
-//   $.ajax({
-//     url: '/get_file_data_skp_bin',
-//     data: { 'path_bin': path },
-//     method: 'GET',
-//     responseType: 'arraybuffer',  // Correct spelling
-//     success: function (response) {
-//       callback(response);
-//     },
-//     error: function (error) {
-
-//       debugger;
-//       console.error('Error loading binary data:', error);
-//     }
-//   });
-// }
-
-//---------------------------
-//    $.ajax({
-//  url: '/get_file_data_skp',
-//  method: 'GET',
-//  data: {
-//    'path': _path,
-//  },
-//  responseType: 'arraybuffer',
-//  success: function(data) {
-//    var encoder = new TextEncoder();
-//    var truncatedData = data;
-////    var truncatedData = data.slice(0, -1);
-//    var arrayBuffer = encoder.encode(data).buffer;
-//  console.log('Tipo de datos recibidos:', typeof arrayBuffer);
-//console.log('Longitud de datos recibidos:', arrayBuffer ? arrayBuffer.byteLength : 'undefined');
-//
-//    var adjustedData = new Uint8Array(arrayBuffer.byteLength + 1);
-////    adjustedData.set(new Uint8Array(arrayBuffer));
-////    adjustedData.set(new Uint8Array(data));
-//    // Crear un Blob para el archivo ZIP
-//    var blob = new Blob([arrayBuffer, new Uint8Array([0])], { type: 'application/zip' });
-//
-//    // Utilizar JSZip para descomprimir el archivo ZIP
-//    JSZip.loadAsync(blob).then(function (zip) {
-//      // Supongamos que el modelo GLTF está en un archivo llamado 'modelo.gltf' en el ZIP
-//      zip.file('modelo.gltf').async('arraybuffer').then(function (gltfData) {
-//        // Configurar Three.js
-//        var scene = new THREE.Scene();
-//        var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-//        var renderer = new THREE.WebGLRenderer();
-//        renderer.setSize(window.innerWidth, window.innerHeight);
-//        document.getElementById('app').appendChild(renderer.domElement);
-//
-//        // Cargar el modelo GLTF con Three.js
-//        var loader = new THREE.GLTFLoader();
-//        loader.parse(gltfData, '', function (gltf) {
-//          // Agregar el modelo GLTF a la escena
-//          scene.add(gltf.scene);
-//
-//          // Configurar la cámara
-//          camera.position.z = 5;
-//
-//          // Renderizar la escena
-//          var animate = function () {
-//            requestAnimationFrame(animate);
-//            renderer.render(scene, camera);
-//          };
-//
-//          animate();
-//        });
-//
-//      }).catch(function (error) {
-//        console.error('Error al cargar el archivo GLTF desde el ZIP:', error);
-//      });
-//    }).catch(function (error) {
-//      console.error('Error al cargar el ZIP:', error);
-//    });
-//  },
-//  error: function(error) {
-//    console.error('Error al obtener archivos ZIP:', error);
-//  }
-//});
-//-----------------------------
-
-
-//    fetch('/get_file_data_skp')
-//      .then(response => response.blob())
-//      .then(blob => {
-//          // Descomprimir el archivo zip
-//          console.log('.then(blob => {');
-//          return JSZip.loadAsync(blob);
-//      })
-//        .then(zip => {
-//        console.log('.then(zip => {');
-//        // Obtener las rutas de los archivos descomprimidos
-//        const gltfPath = Object.keys(zip.files).find(key => key.endsWith('.gltf'));
-//        const binPath = Object.keys(zip.files).find(key => key.endsWith('.bin'));
-//
-//        // Leer el contenido de los archivos
-//        const gltfContent = zip.files[gltfPath].async('string');
-//        const binContent = zip.files[binPath].async('uint8array');
-//
-//        // Crear el modelo GLTF
-//        const loader = new THREE.GLTFLoader();
-//        loader.parse({
-//          gltf: gltfContent,
-//          bin: binContent
-//        }, '', (gltf) => {
-//          // Ahora, 'gltf.scene' contiene tu modelo 3D cargado
-//          const scene = new THREE.Scene();
-//          scene.add(gltf.scene);
-//
-//          // Configurar la cámara y el renderer según sea necesario
-//          const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-//          const renderer = new THREE.WebGLRenderer();
-//          renderer.setSize(window.innerWidth, window.innerHeight);
-//
-//          // Añadir el renderer al contenedor con ID "app"
-//          document.getElementById('app').appendChild(renderer.domElement);
-//
-//          // Renderizar la escena
-//          const animate = () => {
-//            requestAnimationFrame(animate);
-//            renderer.render(scene, camera);
-//          };
-//
-//          animate();
-//        });
-//      })
-//  .catch(error => console.log('Error al descargar archivos:', error));
-
-
-
-
-//    $('#skpModal').modal('show');
-//    $.ajax({
-//        url: '/get_file_data_skp',
-//        dataType:'json',
-//        data: {
-//            'path': _path,
-//        },
-//        success:function(data){
-//
-//           console.log(data);
-////        var iframe = document.getElementById('pdf-iframe');
-////
-////        // Base64 del contenido del PDF (reemplaza esto con tu base64 real)
-////        var base64PDF = data['data']; // Tu cadena base64 aquí
-//        loadSKP(data);
-////        loadSKP(base64PDF);
-//
-////        // Construir la URL de datos para el iframe
-////        var dataURL = 'data:application/pdf;base64,' + base64PDF;
-////
-////        // Establecer la URL en el iframe
-////        iframe.src = dataURL;
-////        var pdfViewer = new PDFViewer({ viewer: iframe });
-//
-//
-//
-////            attachmentUrl = convertPdfInBase64ToUrl(data['data']);
-////            console.log(attachmentUrl);
-////            $('#pdf-embed').attr('src', attachmentUrl);
-//        },
-//        error: function(data){
-//            console.log(data);
-//        },
-//    });
 
 function ver_archivo(_path) {
   //    console.log(_path);
@@ -405,3 +222,8 @@ function convertPdfInBase64ToUrl(pdfInBase64) {
 
   return URL.createObjectURL(pdfAsBlobObject);
 }
+// // IMPORTANTE HACER VISIBLE LAS FUNCIONES EN LA VENTANA!
+// window.loadSKP = loadSKP
+// window.obtener_directorio = obtener_directorio
+// window.ver_archivo = ver_archivo
+// window.convertPdfInBase64ToUrl = convertPdfInBase64ToUrl

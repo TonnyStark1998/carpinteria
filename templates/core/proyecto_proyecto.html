@@ -6,12 +6,11 @@ VUE
 
 THREE.JS 
 <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.159.0/build/three.min.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/three@0.159.0/build/three.min.js"></script> -->
 
 OTHERS
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js"></script>
 <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.0.3/pako.min.js"></script>-->
-
 
 
 {% endblock %}
@@ -146,8 +145,6 @@ OTHERS
 
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 
-
-
 <!-- Incluye Vue.js desde el CDN -->
 <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
 
@@ -155,6 +152,6 @@ OTHERS
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.0.3/pako.min.js"></script>
 <script src="{% static 'src/js/core/proyect_vue.js' %}"></script>
-
+<script defer src="{% static 'src/js/core/FlyControls.js' %}"></script>
 <script src="{% static 'src/js/core/proyecto_proyecto.js' %}"></script>
 {% endblock extraJS %}
