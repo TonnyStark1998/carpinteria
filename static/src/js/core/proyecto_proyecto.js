@@ -120,7 +120,7 @@ function ver_archivo_SKP(_path) {
         scene.add(ambientLight);
 
         // Create a directional light
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
         directionalLight.position.set(1, 1, 1).normalize(); // Set the direction of the light
         scene.add(directionalLight);
 
