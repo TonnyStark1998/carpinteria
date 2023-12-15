@@ -4,6 +4,11 @@ import { MapControls } from 'three/addons/controls/MapControls.js';
 
 var scene = new THREE.Scene();
 const renderer = new THREE.WebGLRenderer();
+var raycaster = new THREE.Raycaster();
+var mouse = new THREE.Vector2();
+var camera = null;
+var controls = null;
+
 // var rgbeLoader = new RGBELoader();
 
 // Function to remove all objects from the scene
@@ -31,6 +36,7 @@ function init3DModelViewer(glbData) {
       // renderer.clear();
       removeAllObjects()
       scene.add(gltf.scene);
+      // resetObjectPositions();
       scene.scale.set(4, 4, 4); // Scale by a factor of 2 along all axes
 
       // Load the HDRI environment map
@@ -64,16 +70,38 @@ function init3DModelViewer(glbData) {
       var containerHeight = container.offsetHeight;
 
       // Initialize camera
-      const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000);
+      camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000);
       camera.position.z = 10;
+      // Foucs logic
+      window.addEventListener('click', onClick, false);
+
+      function onClick(event) {
+        // Calculate mouse coordinates
+        mouse.x = (event.clientX / containerWidth) * 2 - 1;
+        mouse.y = -(event.clientY / containerHeight) * 2 + 1;
+
+        // Set the ray's origin and direction based on the mouse coordinates
+        raycaster.setFromCamera(mouse, camera);
+
+        // Check for intersections
+        var intersects = raycaster.intersectObjects(scene.children, true);
+
+        if (intersects.length > 0) {
+          // An object was clicked
+          var clickedObject = intersects[0].object;
+          controls.target = clickedObject.position.clone();
+          console.log('Clicked object:', clickedObject);
+        }
+      }
 
       // Initialize renderer
       renderer.setSize(containerWidth, containerHeight);
       document.getElementById('scene-container').appendChild(renderer.domElement);
 
-      const controls = new MapControls(camera, renderer.domElement);
-      controls.enableDamping = true;
-
+      controls = new MapControls(camera, renderer.domElement);
+      // controls.enableDamping = true;
+      // controls.zoomToCursor = true;
+      
       // Animation loop
       const animate = () => {
         requestAnimationFrame(animate);
