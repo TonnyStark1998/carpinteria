@@ -1,5 +1,4 @@
 // ENTRY
-
 obtener_directorio();
 var rutaViewDataInput = document.getElementById("ruta");
 
@@ -51,7 +50,10 @@ function obtener_directorio() {
 
         var celda5 = fila.insertCell(4);
         var fun_type = '<button type="button" class="btn btn-block bg-gradient-danger btn-xs" disabled>No disponible</button>';
-        if (file["ext"] == 'SKP' || true) {
+        if (file["ext"] == 'SKP') {
+          
+          // fun_type = '<button type="button" class="btn btn-block bg-gradient-success btn-xs" onclick="init3DModelViewer(' + "'" + file["path_to_file"] + "'" + ')">Ver</button>'
+
           fun_type = '<button type="button" class="btn btn-block bg-gradient-success btn-xs" onclick="ver_archivo_SKP(' + "'" + file["path_to_file"] + "'" + ')">Ver</button>'
         }
         if (file["ext"] == 'PDF') {
@@ -80,6 +82,7 @@ function obtener_directorio() {
 
 function ver_archivo_SKP(_path) {
   $('#modal-xl').modal('show');
+
 
   // GLTFLoader instance
   var loader = new THREE.GLTFLoader();
@@ -135,10 +138,13 @@ function ver_archivo_SKP(_path) {
         renderer.setSize(containerWidth, containerHeight);
         document.getElementById('scene-container').appendChild(renderer.domElement);
 
-        const controls = new FlyControls(camera, renderer.domElement);
-        controls.movementSpeed = 15;
-        controls.rollSpeed = 0.2;
-        controls.dragToLook = true;
+        // const controls = new FlyControls(camera, renderer.domElement);
+        // controls.movementSpeed = 15;
+        // controls.rollSpeed = 0.2;
+        // controls.dragToLook = true;
+
+        const controls = new MapControls( camera, renderer.domElement );
+        controls.enableDamping = true;
 
         var clock = new THREE.Clock();
 

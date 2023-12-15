@@ -17,8 +17,18 @@ ubicacion_skp = argv[0]
 # Argumento 2: Destino
 destino = argv[1]
 
+# Deselect all objects
+bpy.ops.object.select_all(action='DESELECT')
+
+# Select and delete all objects in the scene
+bpy.ops.object.select_by_type(type='MESH')
+bpy.ops.object.delete()
+
+# Update the scene to reflect the changes
+bpy.context.view_layer.update()
+
 # Cargar el archivo SKP
-bpy.ops.import_scene.fbx(filepath=ubicacion_skp)
+bpy.ops.import_scene.skp(filepath=ubicacion_skp)
 # bpy.ops.import_scene.skp(filepath=ubicacion_skp)
 
 # Crear la ruta completa del archivo de destino
