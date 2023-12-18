@@ -92,7 +92,7 @@ def get_file_data_skp(request):
 
     # Ruta al ejecutable de Blender
     # blender_executable = 'blender'
-    blender_executable = '"C:/Program Files/Blender Foundation/Blender 3.5/blender.exe"'
+    blender_executable = 'blender'
 
     # Ruta al script de Blender
     blender_script = 'C:/repos/carpinteria/convertion_skp_gltf.py'
