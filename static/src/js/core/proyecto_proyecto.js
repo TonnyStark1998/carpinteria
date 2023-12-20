@@ -1,5 +1,5 @@
 // ENTRY
-obtener_directorio();
+obtener_directorio('');
 var rutaViewDataInput = document.getElementById("ruta");
 
 // DECLARACIONES
@@ -12,10 +12,13 @@ function loadSKP(data) {
   //  loadModel(data);
 }
 
-function obtener_directorio() {
+function obtener_directorio(_path) {
   $.ajax({
     url: '/get_files',
     dataType: 'json',
+    data: {
+      'path': _path,
+    },
     success: function (data) {
       //            console.log(data);
       rutaViewDataInput.value = data['ruta'];

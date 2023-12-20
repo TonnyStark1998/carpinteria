@@ -95,11 +95,11 @@ def get_file_data_skp(request):
     blender_executable = 'blender'
 
     # Ruta al script de Blender
-    blender_script = 'C:/repos/carpinteria/convertion_skp_gltf.py'
+    blender_script = 'D:/Documentos/odoo/carpinteria/carpinteria/convertion_skp_gltf.py'
 
     # Rutas de los archivos skp y destino
     ubicacion_skp = request.GET['path']
-    destino = 'C:/carpinteria-models/temp'
+    destino = 'C:/Users/corne/Documents/temp/'
 
     # Comando para ejecutar el script de Blender con los argumentos
     command = f'{blender_executable} --background --python {blender_script} -- {shlex.quote(ubicacion_skp)} {shlex.quote(destino)}'
@@ -167,7 +167,11 @@ def get_file_data(request):
 
 
 def get_files(request):
-    directorio = settings.PATH_TO_DIR
+
+    directorio = settings.PATH_TO_DIR \
+        if (request.GET['path'] == '' or len(request.GET['path']) < len(settings.PATH_TO_DIR)) else f"{request.GET['path']}"
+
+    print(f"Response: {request.GET['path']}, ruta: {directorio}")
     json_response = {"ruta": directorio}
     file_list = []
     try:
@@ -176,7 +180,7 @@ def get_files(request):
         for archivo in archivos:
             ruta_completa = os.path.join(directorio, archivo)
             if os.path.isfile(ruta_completa):
-                print(f'Archivo: {archivo}')
+                # print(f'Archivo: {archivo}')
                 file_list.append({
                     "file": archivo,
                     "type": "file",
@@ -186,7 +190,7 @@ def get_files(request):
                 })
 
             elif os.path.isdir(ruta_completa):
-                print(f'Directorio: {archivo}')
+                # print(f'Directorio: {archivo}')
                 file_list.append({
                     "file": archivo,
                     "type": "dict",
@@ -206,7 +210,7 @@ def get_files(request):
     except Exception as e:
         print(f'Ocurrió un error al intentar listar archivos: {e}')
     json_response["file_list"] = file_list
-    print(json_response)
+    # print(json_response)
     return JsonResponse(json_response)
 
 
@@ -225,8 +229,8 @@ def paint(request):
 
 
 @login_required
-def proyectos(request):
-    return render(request, 'core/proyecto_proyecto.html')
+def proyectos(request, proyecto_id):
+    return render(request, 'core/proyecto_proyecto.html', {'proyecto_id': proyecto_id})
 
 
 @login_required

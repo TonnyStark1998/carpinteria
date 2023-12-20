@@ -8,7 +8,11 @@ VUE
 
 OTHERS
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/ng-pdfviewer/0.2.1/ng-pdfviewer.min.map"></script>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/ng-pdfviewer/0.2.1/ng-pdfviewer.min.js"></script>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/pdf-viewer-lib@1.0.0/build/pdf.min.js"></script>-->
 <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.0.3/pako.min.js"></script>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/html-pdf-viewer@1.0.14/dist/html-pdf-viewer.min.js"></script>-->
 
 {% endblock %}
 {% block extraCSS %}
@@ -28,6 +32,7 @@ OTHERS
 					</div>
 					<div class="col-lg-4 col-4 text-center card" style="margin-top: 10px;">
 						<h2>ARCHIVOS PROYECTOS</h2>
+						<input disabled value="proyect_{{ proyecto_id }}" style="display: none;">
 					</div>
 					<div class="col-lg-4 col-4 text-center card">
 						<h3 class="card-title"><br></h3>
@@ -35,10 +40,11 @@ OTHERS
 				</div>
 				<div class="row">
 					<div class="col-lg-1 col-1 text-center">
-						<a class="btn btn-app bg-info form-control" href="{% url 'home' %}">
+						<a class="btn btn-app bg-info form-control" onclick="returnFolder()">
 							<i class="fas fa-arrow-circle-left" style="font-size: 35px;"></i>
 						</a>
 					</div>
+
 					<div class="col-lg-11 col-11 text-center">
 						<input class="textview form-control" id="ruta" readonly style="height: 50px; font-size: 25px;">
 					</div>
@@ -72,7 +78,7 @@ OTHERS
 	<div class="modal-dialog custom-modal-width" style="height: 100%;margin: 0;">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title">Visor de archivo PDF</h4>
+				<h4 class="modal-title">Visor de archivo 3D SKP</h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -81,10 +87,6 @@ OTHERS
 		
 
 			<div id="modal-body" class="modal-body">
-				<!--    		<div id="pdf-viewer"></div>-->
-				<!--    		<embed id="pdf-embed" type="application/pdf" width="100%" height="600px"-->
-				<!--				   oncontextmenu="return f/alse;" controls="controls"/>-->
-				<!-- <iframe id="pdf-iframe" width="100%" height="600px" frameborder="0"></iframe> -->
 				<div id="scene-container"></div>
 
 			</div>
@@ -98,11 +100,11 @@ OTHERS
 		</div>
 	</div>
 </div>
-<div class="modal" id="skpModal" tabindex="-1" role="dialog" aria-labelledby="skpModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg" role="document">
+<div class="modal" id="skpModal" style="margin: 0;">
+	<div class="modal-dialog custom-modal-width" style="height: 100%;margin: 0;">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="skpModalLabel">Visor 3D SKP</h5>
+				<h5 class="modal-title" id="skpModalLabel">Visor PDF</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -110,7 +112,12 @@ OTHERS
 			<!--            <div class="modal-body" id="skpModalBody">-->
 
 			<div class="modal-body" id="skpModalBody">
-				<div id="app"></div>
+<!--				<div id="app"></div>-->
+
+				    		<div id="pdf-viewer"></div>
+				    		<embed id="pdf-iframe" type="application/pdf"
+								   oncontextmenu="return false;" controls="controls" width="100%" height="100%">
+<!--				 			<iframe id="pdf-iframe" width="100%" height="100%" frameborder="0"></iframe>-->
 
 
 				<!--  <script>-->

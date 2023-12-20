@@ -1,8 +1,13 @@
-export function obtenerDirectorio() {
+export function obtenerDirectorio(_path) {
+    console.log('_path');
+    console.log(_path);
     return new Promise((resolve, reject) => {
       $.ajax({
         url: '/get_files',
         dataType: 'json',
+        data: {
+          'path': _path,
+        },
         success: resolve,
         error: reject,
       });
