@@ -95,11 +95,11 @@ def get_file_data_skp(request):
     blender_executable = 'blender'
 
     # Ruta al script de Blender
-    blender_script = 'D:/Documentos/odoo/carpinteria/carpinteria/convertion_skp_gltf.py'
+    blender_script = settings.PATH_TO_SCRIPT_BLENDER
 
     # Rutas de los archivos skp y destino
     ubicacion_skp = request.GET['path']
-    destino = 'C:/Users/corne/Documents/temp/'
+    destino = settings.PATH_TO_TEMP
 
     # Comando para ejecutar el script de Blender con los argumentos
     command = f'{blender_executable} --background --python {blender_script} -- {shlex.quote(ubicacion_skp)} {shlex.quote(destino)}'

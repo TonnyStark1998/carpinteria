@@ -16,6 +16,8 @@ export function obtenerDirectorio(_path) {
   
   export function getFileDataSKP(path) {
     $('#modal-xl').modal('show');
+    var sceneContainer = document.getElementById('scene-container');
+    sceneContainer.innerHTML = '';
 
     return fetch(`/get_file_data_skp?path=${path}`, {
       method: 'GET',

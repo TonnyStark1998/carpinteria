@@ -5,60 +5,74 @@ const limpiar = document.querySelector("#limpiar");
 const canvas = document.querySelector("#canvas");
 const contexto = canvas.getContext("2d");
 
+let ruta = false;
+let x, y;
 
-// event Listener
-
+// Event Listener
 eventList();
+
 function eventList() {
-    canvas.addEventListener("mousemove", dibujar); //cuando se mueva el mouse llamamos a la funcion dibujar
-    canvas.addEventListener("mousedown", function() {
-    ruta=true;// Creamos la ruta de la linea
-    contexto.beginPath(); // funcion que comieza a dibujar
-    contexto.moveTo(x,y);
-    console.log("posicion Inicial X;"+x+" Y:"+y);
-    canvas.addEventListener("mousemove", dibujar);
+    // Eventos para dispositivos táctiles
+    canvas.addEventListener("touchstart", function (e) {
+        ruta = true;
+        x = e.touches[0].clientX - canvas.getBoundingClientRect().left;
+        y = e.touches[0].clientY - canvas.getBoundingClientRect().top;
+        contexto.beginPath();
+        contexto.moveTo(x, y);
     });
 
-    canvas.addEventListener("mouseup", function() { //cuando se termine de precionar el mouse se termina de dibujar
-    ruta=false;
-    })
+    canvas.addEventListener("touchmove", function (e) {
+        e.preventDefault();
+        if (ruta == true) {
+            x = e.touches[0].clientX - canvas.getBoundingClientRect().left;
+            y = e.touches[0].clientY - canvas.getBoundingClientRect().top;
+            contexto.lineTo(x, y);
+            contexto.stroke();
+        }
+    });
 
-    color,addEventListener("change", colorLinea); // Selecciona el color
+    canvas.addEventListener("touchend", function () {
+        ruta = false;
+    });
 
-    ancho.addEventListener("change", anchoLinea); // Selecciona el ancho
+    // Eventos para dispositivos con ratón
+    canvas.addEventListener("mousedown", function (e) {
+        ruta = true;
+        x = e.clientX - canvas.getBoundingClientRect().left;
+        y = e.clientY - canvas.getBoundingClientRect().top;
+        contexto.beginPath();
+        contexto.moveTo(x, y);
+    });
 
-    limpiar.addEventListener("click", limpiarCanvas); // limpia el canvas
+    canvas.addEventListener("mousemove", function (e) {
+        if (ruta == true) {
+            x = e.clientX - canvas.getBoundingClientRect().left;
+            y = e.clientY - canvas.getBoundingClientRect().top;
+            contexto.lineTo(x, y);
+            contexto.stroke();
+        }
+    });
+
+    canvas.addEventListener("mouseup", function () {
+        ruta = false;
+    });
+
+    color.addEventListener("change", colorLinea);
+    ancho.addEventListener("change", anchoLinea);
+    limpiar.addEventListener("click", limpiarCanvas);
 }
 
-// Definir el hancho de linea
 contexto.lineWidth = 1;
 
-// Creando ruta 
-let ruta = false;
-
-// funciones
-
-// funcion que dibuja sobre el canvas
-function dibujar(e){
-    //Elegimos el comportamiento de X e Y
-    x=e.clientX-canvas.offsetLeft; 
-    y=e.clientY-canvas.offsetTop;
-
-    if (ruta == true) {
-        contexto.lineTo(x,y);
-        contexto.stroke();
-    }
-}
-
 function colorLinea() {
-    contexto.strokeStyle=color.value;
+    contexto.strokeStyle = color.value;
 }
 
 function anchoLinea() {
-    contexto.lineWidth=ancho.value;
-    document.getElementById("valor").innerHTML=ancho.value;
+    contexto.lineWidth = ancho.value;
+    document.getElementById("valor").innerHTML = ancho.value;
 }
 
-function limpiarCanvas(){
-    contexto.clearRect(0,0,canvas.width, canvas.height)
+function limpiarCanvas() {
+    contexto.clearRect(0, 0, canvas.width, canvas.height);
 }
