@@ -36,11 +36,14 @@ function call_obtenerDirectorio(_path){
             var fun_type = '<button type="button" class="btn btn-block bg-gradient-danger btn-xs" disabled>No disponible</button>';
 
             var rutaCompleta = rutaViewDataInput.innerHTML;
-            var segmentos = rutaCompleta.split('/');
-            var ultimoSegmento = segmentos.pop();
-            var existeTexto = ultimoSegmento.includes("17.B.O.M");
-            var existeTextoProyecto = ultimoSegmento.includes("14.O.P");
+            var existeTexto = rutaCompleta.includes("17.B.O.M");
+            var existeTextoProyecto = rutaCompleta.includes("14.O.P");
+            if (rutaCompleta.includes("OBSOLETOS")){
+                existeTexto = false;
+                existeTextoProyecto = false;
+            }
             var urlCompleta = window.location.href;
+
             var urlObjeto = new URL(urlCompleta);
             var segmentos = urlObjeto.pathname.split('/');
             var ultimoSegmento = segmentos.pop();
