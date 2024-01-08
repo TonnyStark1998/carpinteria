@@ -32,16 +32,22 @@ function call_obtenerDirectorio(_path){
             var celda3 = fila.insertCell(2);
             celda3.innerHTML = file["file"];
 
-            var celda4 = fila.insertCell(3);
-            celda4.innerHTML = (file["ext"] == -1 && file["type"] == 'file') ? '<span title="No disponible" class="badge bg-danger">No disponible</span>' :
-                '<span title="Disponible" class="badge bg-success">Disponible</span>';
-
-            var celda5 = fila.insertCell(4);
+            var celda5 = fila.insertCell(3);
             var fun_type = '<button type="button" class="btn btn-block bg-gradient-danger btn-xs" disabled>No disponible</button>';
-            if (file["ext"] == 'SKP') {
+
+            var rutaCompleta = rutaViewDataInput.innerHTML;
+            var segmentos = rutaCompleta.split('/');
+            var ultimoSegmento = segmentos.pop();
+            var existeTexto = ultimoSegmento.includes("17.B.O.M");
+            var existeTextoProyecto = ultimoSegmento.includes("14.O.P");
+            var urlCompleta = window.location.href;
+            var urlObjeto = new URL(urlCompleta);
+            var segmentos = urlObjeto.pathname.split('/');
+            var ultimoSegmento = segmentos.pop();
+            if (file["ext"] == 'SKP' && existeTextoProyecto == true && ultimoSegmento == 0) {
                 fun_type = '<button type="button" class="btn btn-block bg-gradient-success btn-xs" onclick="ver_archivo_SKP(' + "'" + file["path_to_file"] + "'" + ')">Ver</button>'
             }
-            if (file["ext"] == 'PDF') {
+            if (file["ext"] == 'PDF' && existeTexto == true && ultimoSegmento == 1) {
                 fun_type = '<button type="button" class="btn btn-block bg-gradient-success btn-xs" onclick="verArchivo(' + "'" + file["path_to_file"] + "'" + ')">Ver</button>'
             }
 
