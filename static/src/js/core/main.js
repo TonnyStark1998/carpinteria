@@ -35,7 +35,7 @@ function call_obtenerDirectorio(_path){
             var celda5 = fila.insertCell(3);
             var fun_type = '<button type="button" class="btn btn-block bg-gradient-danger btn-xs" disabled>No disponible</button>';
 
-            var rutaCompleta = rutaViewDataInput.innerHTML;
+            var rutaCompleta = document.getElementById("ruta").value;
             var existeTexto = rutaCompleta.includes("17.B.O.M");
             var existeTextoProyecto = rutaCompleta.includes("14.O.P");
             if (rutaCompleta.includes("OBSOLETOS")){
