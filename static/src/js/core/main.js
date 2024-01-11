@@ -36,8 +36,8 @@ function call_obtenerDirectorio(_path){
             var fun_type = '<button type="button" class="btn btn-block bg-gradient-danger btn-xs" disabled>No disponible</button>';
 
             var rutaCompleta = document.getElementById("ruta").value;
-            var existeTexto = rutaCompleta.includes("17.B.O.M");
-            var existeTextoProyecto = rutaCompleta.includes("14.O.P");
+            var existeTexto = rutaCompleta.includes("17");
+            var existeTextoProyecto = rutaCompleta.includes("14");
             if (rutaCompleta.includes("OBSOLETOS")){
                 existeTexto = false;
                 existeTextoProyecto = false;
