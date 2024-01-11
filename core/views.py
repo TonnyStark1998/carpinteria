@@ -102,7 +102,7 @@ def get_file_data_skp(request):
     destino = settings.PATH_TO_TEMP
 
     # Comando para ejecutar el script de Blender con los argumentos
-    command = f'{blender_executable} --background --python {blender_script} -- {shlex.quote(ubicacion_skp)} {shlex.quote(destino)}'
+    command = f'{blender_executable} --background --python {blender_script} -- "{ubicacion_skp}" "{destino}"'
 
     # Ejecutar el comando
     process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
