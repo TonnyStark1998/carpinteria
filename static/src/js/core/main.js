@@ -96,21 +96,19 @@ function verArchivoSKP(path) {
 function verArchivo(path) {
   $('#skpModal').modal('show');
     getFileData(path).then((data) => {
-        // Handle success, open modal, render PDF, etc.
-        // For example, verArchivo(data['data']);
-        console.log(data);
 
-          var iframe = document.getElementById('pdf-iframe');
+        var iframe = document.getElementById('pdf-iframe');
+        var base64PDF = data['data']; // Tu cadena base64 aquí
+        let pdfInBinary = atob(base64PDF.replace(/\s/g, ''));
 
-          // Base64 del contenido del PDF (reemplaza esto con tu base64 real)
-          var base64PDF = data['data']; // Tu cadena base64 aquí
+        let buffer = new ArrayBuffer(pdfInBinary.length);
+        let view = new Uint8Array(buffer);
+        for (let i = 0; i < pdfInBinary.length; i++) {
+            view[i] = pdfInBinary.charCodeAt(i);
+        }
+        let pdfAsBlobObject = new Blob([view], { type: "application/pdf" });
 
-          // Construir la URL de datos para el iframe
-          var dataURL = 'data:application/pdf;base64,' + base64PDF;
-
-          // Establecer la URL en el iframe
-          iframe.src = dataURL;
-          var pdfViewer = new PDFViewer({ viewer: iframe });
+        iframe.src = URL.createObjectURL(pdfAsBlobObject);;
     }).catch((error) => {
         console.error(error);
         // Handle error, show an error message, etc.
