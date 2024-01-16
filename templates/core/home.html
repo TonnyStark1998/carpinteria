@@ -3,36 +3,37 @@
 {% block headercontent %}
 {% endblock %}
 {% block content %}
-<div class="row">
-  <div class="col-lg-6 col-6">
-    <!-- small box -->
-    <div class="small-box bg-primary clicleable" style="background-color: #9fadbf !important;">
+<div class="row" style="height: 30vh; overflow-y: hidden;">
+  <div class="col-lg-6 col-6" style="height: 100%;">
+  <a href="{% url 'proyectos' proyecto_id=0 %}" style="width: 100%;">
+    <div class="small-box bg-primary clicleable" style="background-color: #9fadbf !important; height: 100%; overflow-y: hidden;">
       <div class="inner">
         <h3>PROYECTOS</h3>
       </div>
       <div class="icon">
         <i class="ion ion-clipboard"></i>
       </div>
-      <a href="{% url 'proyectos' proyecto_id=0 %}" class="small-box-footer">Ir <i class="fas fa-arrow-circle-right"></i></a>
+      <span style="margin-top: 40px" class="small-box-footer">Ir <i class="fas fa-arrow-circle-right"></i></span>
     </div>
+  </a>
   </div>
-  <!-- ./col -->
-  <div class="col-lg-6 col-6">
-      <a href="{% url 'calculadora' %}">
-    <div class="small-box bg-primary clicleable" style="background-color: #d8d7d6 !important;">
-            <div class="inner">
-              <h3>CALCULADORA</h3>
-            </div>
-            <div class="icon">
-              <i class="ion ion-stats-bars"></i>
-            </div>
-            <a style="margin-top: 30px" href="{% url 'calculadora' %}" class="small-box-footer">
-              Ir <i class="fas fa-arrow-circle-right"></i>
-            </a>
+  <div class="col-lg-6 col-6" style="height: 100%;">
+    <a href="{% url 'calculadora' %}" style="width: 100%;">
+      <div class="small-box bg-primary clicleable" style="background-color: #d8d7d6 !important; height: 100%; overflow-y: hidden;">
+        <div class="inner">
+          <h3>CALCULADORA</h3>
         </div>
-      </a>
+        <div class="icon">
+          <i class="ion ion-stats-bars"></i>
+        </div>
+        <span style="margin-top: 40px" class="small-box-footer">
+          Ir <i class="fas fa-arrow-circle-right"></i>
+        </span>
+      </div>
+    </a>
   </div>
 </div>
+
 
 <div class="row">
   <div class="col-lg-4 col-4 right">
@@ -42,8 +43,8 @@
   </div>
   <div class="col-lg-4 col-4 mx-auto text-center">
 
-      <img src="{% static 'src/img/logo.png' %}"  height="160" width="160">
-      <img src="{% static 'src/img/logo_2.jfif' %}"  height="160" width="160">
+<!--      <img src="{% static 'src/img/logo.png' %}"  height="160" width="160">-->
+<!--      <img src="{% static 'src/img/logo_2.jfif' %}"  height="160" width="160">-->
 <!--    <a href="index3.html" class="brand-link">-->
 <!--      <img src="{% static 'src/img/logo.png' %}"  height="160" width="160">-->
 <!--    </a>-->
@@ -53,35 +54,39 @@
 <!--      <img src="{% static 'src/img/logo.png' %}"  height="160" width="160">-->
 <!--    </a>-->
   </div>
-</div>
-
-<div class="row">
-  <div class="col-lg-6 col-6">
-    <div class="small-box bg-primary clicleable" style="background-color: #0e1c47 !important;">
+</div><div class="row" style="height: 100vh;">
+  <div class="col-lg-6 col-6" style="height: 30%;">
+    <a href="{% url 'proyectos' proyecto_id=1 %}" style="text-decoration: none; color: inherit; height: 100%;">
+      <div class="small-box bg-primary clicleable" style="background-color: #0e1c47 !important; height: 100%;">
         <div class="inner">
           <h3>BOM</h3>
         </div>
         <div class="icon">
           <i class="ion ion-clipboard"></i>
         </div>
-        <a href="{% url 'proyectos' proyecto_id=1 %}" class="small-box-footer">Ir <i class="fas fa-arrow-circle-right"></i></a>
+        <span style="margin-top: 40px" class="small-box-footer">Ir <i class="fas fa-arrow-circle-right"></i></span>
       </div>
+    </a>
   </div>
-  <div class="col-lg-6 col-6">
-      <div class="small-box bg-secondary clicleable"  style="height: 130px">
-        <a href="{% url 'paint' %}">
+  <a href="{% url 'paint' %}">
+    <div class="col-lg-6 col-6" style="height: 30%;">
+      <a href="{% url 'paint' %}" style="text-decoration: none; color: inherit; height: 100%;">
+      <div class="small-box bg-secondary clicleable" style="height: 100%;">
           <div class="inner">
             <h3>PAINT</h3>
           </div>
           <div class="icon">
             <i class="ion ion-android-arrow-down"></i>
           </div>
-          <a style="margin-top: 30px" href="{% url 'paint' %}" class="small-box-footer">
+          <span style="margin-top: 40px" class="small-box-footer">
             Ir <i class="fas fa-arrow-circle-right"></i>
-          </a>
-        </a>
+          </span>
+      </div>
+      </a>
     </div>
-  </div>
+  </a>
 </div>
+
+
 
 {% endblock %}

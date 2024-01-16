@@ -49,9 +49,16 @@ function call_obtenerDirectorio(_path){
             var ultimoSegmento = segmentos.pop();
             if (file["ext"] == 'SKP' && existeTextoProyecto == true && ultimoSegmento == 0) {
                 fun_type = '<button type="button" class="btn btn-block bg-gradient-success btn-xs" onclick="ver_archivo_SKP(' + "'" + file["path_to_file"] + "'" + ')">Ver</button>'
+                fila.onclick = function () {
+                    ver_archivo_SKP(file["path_to_file"]);
+                };
             }
             if (file["ext"] == 'PDF' && (existeTexto == true || existeTextoProyecto == true)) {
                 fun_type = '<button type="button" class="btn btn-block bg-gradient-success btn-xs" onclick="verArchivo(' + "'" + file["path_to_file"] + "'" + ')">Ver</button>'
+
+                fila.onclick = function () {
+                    verArchivo(file["path_to_file"]);
+                };
             }
 
             var icon = (file["type"] == 'file') ?
