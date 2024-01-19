@@ -3,7 +3,7 @@
 {% block headercontent %}
 {% endblock %}
 {% block content %}
-<div class="row">
+<div class="row" style="background-color: #d8d7d6">
     <div class="col-lg-3 col-3 text-center card-body">
         <div class="row">
             <a class="btn btn-app bg-secondary form-control" href="{% url 'home' %}">
@@ -12,7 +12,6 @@
         </div>
         <div class="row">
             <div class="col-lg-12 col-12 text-center card-body">
-                <img src="{% static 'src/img/calculater.gif' %}" height="260" width="260">
             </div>
         </div>
     </div>
@@ -174,48 +173,8 @@
         </div>
     </div>
     <div class="col-lg-3 col-3 text-center">
-      <img src="{% static 'src/img/calculater2.gif' %}"  height="260" width="260">
     </div>
 </div>
-
-
-<!--    <div class="main">-->
-<!--        <h1>Mario Monroy</h1>-->
-<!--        <form name="form">-->
-<!--            <input class="textview" name="textview" readonly>-->
-<!--        </form>-->
-<!--        <table>-->
-<!--            <tr>-->
-<!--                <td><input class="button" type="button" value="C" onclick="clean()"></td>-->
-<!--                <td><input class="button" type="button" value="<" onclick="back()"></td>-->
-<!--                <td><input class="button" type="button" value="/" onclick="insert('/')"></td>-->
-<!--                <td><input class="button" type="button" value="*" onclick="insert('*')"></td>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <td><input class="button" type="button" value="7" onclick="insert(7)"></td>-->
-<!--                <td><input class="button" type="button" value="8" onclick="insert(8)"></td>-->
-<!--                <td><input class="button" type="button" value="9" onclick="insert(9)"></td>-->
-<!--                <td><input class="button" type="button" value="-" onclick="insert('-')"></td>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <td><input class="button" type="button" value="4" onclick="insert(4)"></td>-->
-<!--                <td><input class="button" type="button" value="5" onclick="insert(5)"></td>-->
-<!--                <td><input class="button" type="button" value="6" onclick="insert(6)"></td>-->
-<!--                <td><input class="button" type="button" value="+" onclick="insert('+')"></td>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <td><input class="button" type="button" value="1" onclick="insert(1)"></td>-->
-<!--                <td><input class="button" type="button" value="2" onclick="insert(2)"></td>-->
-<!--                <td><input class="button" type="button" value="3" onclick="insert(3)"></td>-->
-<!--                <td rowspan="5"><input class="button button_equal" type="button" value="=" onclick="equal()"></td>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <td colspan="2"><input class="button button_0" type="button" value="0" onclick="insert(0)"></td>-->
-<!--                <td><input class="button" type="button" value="." onclick="insert('.')"></td>-->
-<!--            </tr>-->
-<!--        </table>-->
-<!--    </div>-->
-<!--    <script src="js/main.js"></script>-->
 
 {% endblock %}
 
