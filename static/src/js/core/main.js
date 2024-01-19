@@ -47,9 +47,11 @@ function call_obtenerDirectorio(_path){
             var urlObjeto = new URL(urlCompleta);
             var segmentos = urlObjeto.pathname.split('/');
             var ultimoSegmento = segmentos.pop();
-            fila.addEventListener("click", function() {
-                obtener_directorio(data["ruta"] + '/' + file["file"]);
-            });
+            if (file["type"] != 'file'){
+                fila.addEventListener("click", function() {
+                    obtener_directorio(data["ruta"] + '/' + file["file"]);
+                });
+            }
             if (file["ext"] == 'SKP' && existeTextoProyecto == true && ultimoSegmento == 0) {
                 fun_type = '<button type="button" class="btn btn-block bg-gradient-success btn-xs" onclick="ver_archivo_SKP(' + "'" + file["path_to_file"] + "'" + ')">Ver</button>'
                 fila.addEventListener("click", function() {
