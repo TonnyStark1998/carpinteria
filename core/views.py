@@ -65,6 +65,8 @@ def obtener_tipo_archivo(ruta_archivo):
     tipos = {
         '.pdf': 'PDF',
         '.skp': 'SKP',
+        '.jpg': 'JPG',
+        '.jpeg': 'JPEG',
     }
 
     tipo = tipos.get(extension, '-1')
