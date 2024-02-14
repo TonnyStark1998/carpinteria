@@ -58,7 +58,7 @@ function call_obtenerDirectorio(_path){
                     ver_archivo_SKP(file["path_to_file"]);
                 });
             }
-            if (file["ext"] == 'PDF' && (existeTexto == true || existeTextoProyecto == true)) {
+            if ((file["ext"] == 'PDF' || file["ext"] == 'JPG' || file["ext"] == 'JPEG') && (existeTexto == true || existeTextoProyecto == true)) {
                 fun_type = '<button type="button" class="btn btn-block bg-gradient-success btn-xs" onclick="verArchivo(' + "'" + file["path_to_file"] + "'" + ')">Ver</button>'
                 fila.addEventListener("click", function() {
                     verArchivo(file["path_to_file"]);
@@ -105,6 +105,14 @@ function verArchivoSKP(path) {
 }
 
 function verArchivo(path) {
+    var partes = path.split('.');
+    var extension = partes[partes.length - 1];
+    var type_str = ''
+    if (['jpg', 'JPG', 'jpeg', 'JPEG'].includes(extension)){
+        type_str = "image/" + extension.toLowerCase();
+    } else {
+        type_str = "application/pdf";
+    }
   $('#skpModal').modal('show');
     getFileData(path).then((data) => {
 
@@ -117,7 +125,7 @@ function verArchivo(path) {
         for (let i = 0; i < pdfInBinary.length; i++) {
             view[i] = pdfInBinary.charCodeAt(i);
         }
-        let pdfAsBlobObject = new Blob([view], { type: "application/pdf" });
+        let pdfAsBlobObject = new Blob([view], { type: type_str });
 
         iframe.src = URL.createObjectURL(pdfAsBlobObject);;
     }).catch((error) => {
