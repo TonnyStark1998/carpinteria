@@ -58,7 +58,13 @@ function call_obtenerDirectorio(_path){
                     ver_archivo_SKP(file["path_to_file"]);
                 });
             }
-            if ((file["ext"] == 'PDF' || file["ext"] == 'JPG' || file["ext"] == 'JPEG') && (existeTexto == true || existeTextoProyecto == true)) {
+            if (file["ext"] == 'JPG' || file["ext"] == 'JPEG') {
+                fun_type = '<button type="button" class="btn btn-block bg-gradient-success btn-xs" onclick="verArchivo(' + "'" + file["path_to_file"] + "'" + ')">Ver</button>'
+                fila.addEventListener("click", function() {
+                    verArchivo(file["path_to_file"]);
+                });
+            }
+            if (file["ext"] == 'PDF' && (existeTexto == true || existeTextoProyecto == true)) {
                 fun_type = '<button type="button" class="btn btn-block bg-gradient-success btn-xs" onclick="verArchivo(' + "'" + file["path_to_file"] + "'" + ')">Ver</button>'
                 fila.addEventListener("click", function() {
                     verArchivo(file["path_to_file"]);
